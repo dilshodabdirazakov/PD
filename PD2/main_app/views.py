@@ -11,5 +11,5 @@ def index(request):
     
     loads = Load.objects.all()
     context =  {'loads': loads}
-    return render(request, "base.html", context)
+    return render(request, "home.html", context)
     

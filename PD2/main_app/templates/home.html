@@ -1,39 +1,142 @@
+{% extends "base.html" %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+{% block content %}
 
-    <title>LoadBoard</title>
-</head>
-<body>
+<!-- <table class="table-sortable">
 
-    <div class="container">
+<thead>
+  <tr>
+  
+  
+  <th scope="col" class="sortable column-origin">
      
-  {% if loads %}
-  <table class="table table-bordered">  
-        {% for load in loads %}
-        
-                   <tr>
-                    <td>{{ load.origin }} </td>
-                    <td>{{ load.destination }} </td>
-                    <td>{{ load.rate }} </td>
-                    <td>{{ load.total_km }} </td>
-                    <td>{{ load.email }} </td>
-                    <td>{{ load.phone_number }} </td>
-                </tr>
-        </table>
+       
+     
+     <div class="text"><a href="#">Origin</a></div>
+     <div class="clear"></div>
+  </th>
+  <th scope="col" class="sortable column-destination">
+     
+       
+     
+     <div class="text"><a href="#">Destination</a></div>
+     <div class="clear"></div>
+  </th>
+  <th scope="col" class="sortable column-email">
+     
+       
+     
+     <div class="text"><a href="#">Email</a></div>
+     <div class="clear"></div>
+  </th>
+  <th scope="col" class="sortable column-phone_number">
+     
+       
+     
+     <div class="text"><a href="#">Phone number</a></div>
+     <div class="clear"></div>
+  </th>
+  <th scope="col" class="sortable column-total_km">
+     
+       
+     
+     <div class="text"><a href="#">Total km</a></div>
+     <div class="clear"></div>
+  </th>
+  <th scope="col" class="sortable column-rate">
+     
+       
+     
+     <div class="text"><a href="#">Rate</a></div>
+     <div class="clear"></div>
+  </th>
+  </tr>
+  </thead>
+  <tbody>
+  
+      {% for load in loads %}
+      <tr>
+          <th class="field-origin">{{ load.origin }}</th>
+          <th class="field-destination">{{ load.destination }}</th>
+          <td class="field-email">{{ load.email }}</td>
+          <td class="field-phone_number">{{ load.phone_number }}</td>
+          <td class="field-total_km">{{ load.total_km }}</td>
+          <td class="field-rate">{{ load.rate }}</td>
+       </tr>     
+       {% endfor %}   
+  
+  </tbody>
+  </table> -->
 
-      {% endfor %}
-    {% endif %}
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Origin</th>
+        <th>Destination</th>
+        <th>Email</th>
+        <th>Phone number</th>
+        <th>Total km</th>
+        <th>Rate</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for load in loads %}
+      <tr>
+        <td>{{ load.origin }}</td>
+        <td>{{ load.destination }}</td>
+        <td>{{ load.email }}</td>
+        <td>{{ load.phone_number }}</td>
+        <td>{{ load.total_km }}</td>
+        <td>{{ load.rate }}</td>
+      </tr>
+       {% endfor %}   
+    </tbody>
+  </table>
 
-  </div>
+  <script>
+    /**
+ * Sorts a HTML table.
+ * 
+ * @param {HTMLTableElement} table The table to sort
+ * @param {number} column The index of the column to sort
+ * @param {boolean} asc Determines if the sorting will be in ascending
+ */
+ function sortTableByColumn(table, column, asc = true) {
+    const dirModifier = asc ? 1 : -1;
+    const tBody = table.tBodies[0];
+    const rows = Array.from(tBody.querySelectorAll("tr"));
 
-</body>
-</html>
+    // Sort each row
+    const sortedRows = rows.sort((a, b) => {
+        const aColText = a.querySelector(`td:nth-child(${ column + 1 })`).textContent.trim();
+        const bColText = b.querySelector(`td:nth-child(${ column + 1 })`).textContent.trim();
+
+        return aColText > bColText ? (1 * dirModifier) : (-1 * dirModifier);
+    });
+
+    // Remove all existing TRs from the table
+    while (tBody.firstChild) {
+        tBody.removeChild(tBody.firstChild);
+    }
+
+    // Re-add the newly sorted rows
+    tBody.append(...sortedRows);
+
+    // Remember how the column is currently sorted
+    table.querySelectorAll("th").forEach(th => th.classList.remove("th-sort-asc", "th-sort-desc"));
+    table.querySelector(`th:nth-child(${ column + 1})`).classList.toggle("th-sort-asc", asc);
+    table.querySelector(`th:nth-child(${ column + 1})`).classList.toggle("th-sort-desc", !asc);
+}
+
+document.querySelectorAll(".table th").forEach(headerCell => {
+    headerCell.addEventListener("click", () => {
+        const tableElement = headerCell.parentElement.parentElement.parentElement;
+        const headerIndex = Array.prototype.indexOf.call(headerCell.parentElement.children, headerCell);
+        const currentIsAscending = headerCell.classList.contains("th-sort-asc");
+
+        sortTableByColumn(tableElement, headerIndex, !currentIsAscending);
+    });
+});
+  </script>
+
+{% endblock %}
