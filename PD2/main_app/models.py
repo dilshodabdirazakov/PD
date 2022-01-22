@@ -9,3 +9,7 @@ class Load(models.Model):
     total_km = models.CharField(max_length=255, default="")
     email = models.CharField(max_length=255)
     phone_number = models.CharField(max_length=255)
+
+
+def __str__(self):
+    return self.name

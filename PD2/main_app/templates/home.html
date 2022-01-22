@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,94 +13,27 @@
     <title>LoadBoard</title>
 </head>
 <body>
-    {% for load in loads %}
-    <!-- <ul class="list-group list-group-horizontal">
-        <li class="list-group-item">{{ load.origin }}</li>
-        <li class="list-group-item">{{ load.destination }}</li>
-        <li class="list-group-item">{{ load.rate }}</li>
-        <li class="list-group-item">{{ load.total_km }}</li>
-        <li class="list-group-item">{{ load.email }}</li>
-        <li class="list-group-item">{{ load.phone_number }}</li>
-      </ul> -->
 
-      <table class="table table-sortable">
-        <thead>
-            <tr>
-                <th>origin</th>
-                <th>destination</th>
-                <th>rate</th>
-                <th>total_km</th>
-                <th>email</th>
-                <th>phone</th>
-            </tr>
-
-        </thead>
-                    <tbody>
-                <tr>
-                    <td>{{ load.origin }}</td>
-                    <td>{{ load.destination }}</td>
-                    <td>{{ load.rate }}</td>
-                    <td>{{ load.total_km }}</td>
-                    <td>{{ load.email }}</td>
-                    <td>{{ load.phone_number }}</td>
+    <div class="container">
+     
+  {% if loads %}
+  <table class="table table-bordered">  
+        {% for load in loads %}
+        
+                   <tr>
+                    <td>{{ load.origin }} </td>
+                    <td>{{ load.destination }} </td>
+                    <td>{{ load.rate }} </td>
+                    <td>{{ load.total_km }} </td>
+                    <td>{{ load.email }} </td>
+                    <td>{{ load.phone_number }} </td>
                 </tr>
-            </tbody>
-      </table>
+        </table>
+
       {% endfor %}
+    {% endif %}
 
-  <style>
-        .table-sortable th {
-        cursor: pointer;
-        }
+  </div>
 
-        .table-sortable .th-sort-asc::after {
-        content: "\25b4";
-        }
-
-        .table-sortable .th-sort-desc::after {
-        content: "\25be";
-        }
-
-        .table-sortable .th-sort-asc::after,
-        .table-sortable .th-sort-desc::after {
-        margin-left: 5px;
-        }
-
-        .table-sortable .th-sort-asc,
-        .table-sortable .th-sort-desc {
-        background: rgba(0, 0, 0, 0.1);
-        }
-
-  </style>
-
-  <script>
-
-  </script>
-
-      <!-- <ul class="list-group list-group-horizontal-sm">
-        <li class="list-group-item">An item</li>
-        <li class="list-group-item">A second item</li>
-        <li class="list-group-item">A third item</li>
-      </ul>
-      <ul class="list-group list-group-horizontal-md">
-        <li class="list-group-item">An item</li>
-        <li class="list-group-item">A second item</li>
-        <li class="list-group-item">A third item</li>
-      </ul>
-      <ul class="list-group list-group-horizontal-lg">
-        <li class="list-group-item">An item</li>
-        <li class="list-group-item">A second item</li>
-        <li class="list-group-item">A third item</li>
-      </ul>
-      <ul class="list-group list-group-horizontal-xl">
-        <li class="list-group-item">An item</li>
-        <li class="list-group-item">A second item</li>
-        <li class="list-group-item">A third item</li>
-      </ul>
-      <ul class="list-group list-group-horizontal-xxl">
-        <li class="list-group-item">An item</li>
-        <li class="list-group-item">A second item</li>
-        <li class="list-group-item">A third item</li>
-      </ul> -->
 </body>
 </html>
