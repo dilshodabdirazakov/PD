@@ -12,4 +12,9 @@ def index(request):
     loads = Load.objects.all()
     context =  {'loads': loads}
     return render(request, "home.html", context)
+
+def board(request):
+    loads = Load.objects.all()
+    context =  {'loads': loads}
+    return render(request, "board.html", context)
     
