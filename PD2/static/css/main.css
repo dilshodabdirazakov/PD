@@ -1,9 +1,8 @@
-@import url('https://fonts.googleapis.com/css2?family=Shizuru&display=swap');
-body {
-    background-color: black;
+.top_header {
+    margin-top: -25px;
+    margin-left: -7.8px;
+    width: 1920px;
+    height: 37px;
+    background-color: #F6F7F9;
 }
 
-h2{
-    font-size: 60px;
-    font-family: 'Shizuru', cursive;
-}
